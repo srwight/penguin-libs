@@ -1,12 +1,6 @@
-import pymongo, urllib.parse, time
+import pymongo, urllib.parse, time, connection
 
-# Enter your username and password given to access the MongoDB
-user = ''
-password = ''
-ip = ''
-
-# Initializes client that will communicate with the db
-client = pymongo.MongoClient('mongodb://%s:%s@%s' % (urllib.parse.quote_plus(user), urllib.parse.quote_plus(password), ip), port=2343)
+client = connection.connect()
 
 # Define starting times for execution timing.
 times = []

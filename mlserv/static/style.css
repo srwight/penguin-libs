@@ -3,6 +3,7 @@ html, body {
     background: rgb(214, 206, 206);
     height: 100%;
     margin: 0;
+    font-size: medium;
 }
 
 body {
@@ -11,7 +12,7 @@ body {
 }
 
 aside {
-    min-width: 11%;
+    min-width: 13%;
     background: rgb(214, 206, 206);
 }
 
@@ -29,10 +30,10 @@ section {
 }
 
 header {
-    height: 100px;
     background: rgb(214, 206, 206);
     display: flex;
     flex-direction: row;
+    min-height: 100px;
 }
 
 header * {
@@ -40,7 +41,7 @@ header * {
 }
 
 
-div {
+#main {
     flex-grow: 1;
     display: flex;
     flex-direction: row;
@@ -53,8 +54,13 @@ footer {
 }
 
 #logo {
+    max-width: 100%;
     align-self: center;
     text-align: center;
+}
+
+#logo > img {
+    max-width: 95%;
 }
 
 #title {
@@ -91,10 +97,21 @@ footer {
 
 .content {
     position: relative;
-    border-radius: 26px;
+    border-radius: 20px;
     min-height: 80%;
     flex-grow: 1;
     z-index: 3;
     margin: 5%;
+    padding: 5%;
     background: rgb(214, 206, 206);
+}
+
+.content-title {
+    font-size: larger;
+}
+
+.review {
+    background: white;
+    box-shadow: inset 0 0 5px;
+    padding: 8px;
 }

@@ -1,4 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-<div></div>
+<p class="content-title">Sentiment Analysis using the 2018 Yelp Review Dataset</p>
+<p class="content-body review">{{ review|safe|truncate(1000) }} 
+<br>
+<br>{% for n in range(stars) %}
+⭐
+{% endfor %}</p>
+<p><a href='/'>See Another</a></p>
 {% endblock %}

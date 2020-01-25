@@ -1,10 +1,10 @@
 # Created by Stephen Wight
-from random import shuffle as shuf
+from random import shuffle
 import os
 
-def shuffle(filein:str, fileout:str='', kernel_size:int=20) -> str:
+def shuf(filein:str, fileout:str='', kernel_size:int=20) -> str:
     '''
-    shuffle lazy-loads and randomizes the lines of a text file by using random.shuffle to 
+    shuf lazy-loads and randomizes the lines of a text file by using random.shuffle to 
     randomize the contents of a rolling kernel. It will return the name of the output file.
 
     args:
@@ -30,7 +30,7 @@ def shuffle(filein:str, fileout:str='', kernel_size:int=20) -> str:
                 if len(shuffler) < kernel_size:
                     shuffler.append(line)
                     continue
-                shuf(shuffler)
+                shuffle(shuffler)
                 fl_out.write(f'{shuffler.pop()}')
                 shuffler.append(line)
             while len(shuffler) > 0:

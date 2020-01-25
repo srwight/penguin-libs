@@ -38,6 +38,3 @@ def shuf(filein:str, fileout:str='', kernel_size:int=20) -> str:
                 fl_out.write(f'{shuffler.pop()}')
     
     return fileout
-    
-if __name__ == '__main__':
-    print(shuffle('test.txt', 'kern50.txt', 50))

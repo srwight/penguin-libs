@@ -1,9 +1,55 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
+import json
 
 class Vectorizer(TfidfVectorizer):
-    def retrain(self, fp):
-        data = []
-        with open(fp, 'rb') as fl:
-            for i, line in enumerate(fl):
-                data.append(line)
-        self.vocabulary_ = dict(self.vocabulary_, **self.fit(data).vocabulary_)
+    def train(self, fp, samples:int=None, seeker:int=None):
+        """
+        Replacement for the `fit` method of the TfidfVectorizer parent class.
+        This method accepts a json file as input and has optional `samples` and `seeker` parameters.
+
+        Parameters
+        ----------
+        fp : str
+            File path of the desired file to train on.
+
+        samples : int (default=None)
+            Amount of lines of the given file to read through.
+            
+        seeker : int (default=None)
+            Line number to start on for reading lines.
+
+        Examples
+        --------
+        >>> from vectorizer import Vectorizer
+        >>> vec = Vectorizer()
+        >>> vec.train('data1.json')
+        >>>
+        >>> print(len(vec.vocabulary_))
+        28391
+        >>> vec.train('data2.json', samples=1000)
+        >>> print(len(vec.vocabulary_))
+        31923
+        >>> vec.train('data2.json', samples=4000, seeker=1000)
+        >>> print(len(vec.vocabulary_))
+        37189
+        """
+        if fp.endswith('.json'):  
+            data = []
+            with open(fp, 'rb') as fl:
+                if seeker:
+                    for i, line in enumerate(fl):
+                        if i < seeker - 1:
+                            continue
+                        else:
+                            break
+                for i, line in enumerate(fl):
+                    if i < samples:
+                        data.append(json.loads(line)['text'])
+                    else:
+                        break
+            if hasattr(self, 'vocabulary_'):
+                self.vocabulary_ = dict(self.vocabulary_, **self.fit(data).vocabulary_)
+            else:
+                self.fit(data)
+        else:
+            print('Please provide a json file with text and stars as keys.')

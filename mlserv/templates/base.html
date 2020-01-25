@@ -28,10 +28,12 @@
             </nav>
         </aside>
         <section>
+            {% block outer_content %}
             <div class="content">
                 {% block content %}
                 {% endblock %}
             </div>
+            {% endblock %}
         </section>
     </div>
     <footer>©2020 All rights reserved.</footer>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Email Severity Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <aside id="logo">
+            <img src="{{ url_for('static', filename='logo.png') }}">
+        </aside>
+        <section id="title">
+            Email Severity Predictor
+        </section>
+    </header>
+    <div>
+        <aside>
+            <nav>
+                <a class="links"></a>
+                <a href="{{ url_for('home') }}" class="{{ home }} links">Home</a>
+                <a href="{{ url_for('about') }}" class="{{ about }} links">About</a>
+                <a href="{{ url_for('bio') }}" class="{{ bio }} links">Bio</a>
+                <a href="{{ url_for('predictor') }}" class="{{ predictor }} links">Predictor</a>
+                <a class="links"></a>
+            </nav>
+        </aside>
+        <section>
+            <div class="content">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </section>
+    </div>
+    <footer>©2020 All rights reserved.</footer>
+</body>
+</html>

@@ -1,5 +1,6 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
-import json
+import json, warnings
+warnings.simplefilter("ignore", UserWarning)
 
 class Vectorizer(TfidfVectorizer):
     def train(self, fp, samples:int=None, seeker:int=None):
@@ -43,10 +44,13 @@ class Vectorizer(TfidfVectorizer):
                         else:
                             break
                 for i, line in enumerate(fl):
-                    if i < samples:
-                        data.append(json.loads(line)['text'])
+                    if samples:
+                        if i < samples:
+                            data.append(json.loads(line)['text'])
+                        else:
+                            break
                     else:
-                        break
+                        data.append(json.loads(line)['text'])
             if hasattr(self, 'vocabulary_'):
                 self.vocabulary_ = dict(self.vocabulary_, **self.fit(data).vocabulary_)
             else:

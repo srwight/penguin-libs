@@ -3,7 +3,7 @@ import json, warnings
 warnings.simplefilter("ignore", UserWarning)
 
 class Vectorizer(TfidfVectorizer):
-    def train(self, fp, samples:int=None, seeker:int=None):
+    def train(self, fp, samples:int=None, seeker:int=None, debug:bool=False):
         """
         Replacement for the `fit` method of the TfidfVectorizer parent class.
         This method accepts a json file as input and has optional `samples` and `seeker` parameters.
@@ -18,6 +18,9 @@ class Vectorizer(TfidfVectorizer):
             
         seeker : int (default=None)
             Line number to start on for reading lines.
+
+        debug : bool (default=False)
+            If set to true, prints status of file enumerator every 10,000 lines and when fitting data.
 
         Examples
         --------
@@ -44,6 +47,9 @@ class Vectorizer(TfidfVectorizer):
                         else:
                             break
                 for i, line in enumerate(fl):
+                    if debug:
+                        if i % 10000 == 0:
+                            print(f'\rAppending line {i}', end='')
                     if samples:
                         if i < samples:
                             data.append(json.loads(line)['text'])
@@ -51,6 +57,8 @@ class Vectorizer(TfidfVectorizer):
                             break
                     else:
                         data.append(json.loads(line)['text'])
+            if debug:
+                print('Fitting data...')
             if hasattr(self, 'vocabulary_'):
                 self.vocabulary_ = dict(self.vocabulary_, **self.fit(data).vocabulary_)
             else:

@@ -5,16 +5,19 @@
   - Put in @author: <your name> for your model section.
 '''
 
-import joblib
+import joblib, string
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import accuracy_score
 import pandas as pd # We can remove pandas later
+from sklearn.linear_model import LogisticRegression # Used in ML_stack_ensemble
 from ML_stack_ensemble import *
+from nltk.corpus import stopwords # Used in preprocess (for now)
+
 
 ### Import your sklearn model ###
 # Example: from sklearn.linear_model import SGDClassifier
-from sklearn.svm import LinearSVR
+
 ### Import Preprocessing here ###
 # We should put all of our preprocessing together as one function.
 # Example:
@@ -68,3 +71,4 @@ predictions = stacked_prediction(models, ensemble, x_test)
 accuracy = accuracy_score(y_test, predictions)
 print(prediction[0:20])
 print(f"Stacked accuracy: {accuracy}")
+joblib.dump(ensemble, f"{path}\ensemble.joblib")

@@ -39,7 +39,7 @@ class Vectorizer(TfidfVectorizer):
         """
         if fp.endswith('.json'):  
             data = []
-            with open(fp, 'rb') as fl:
+            with open(fp, 'r') as fl:
                 if seeker:
                     for i, line in enumerate(fl):
                         if i < seeker - 1:
@@ -58,7 +58,7 @@ class Vectorizer(TfidfVectorizer):
                     else:
                         data.append(json.loads(line)['text'])
             if debug:
-                print('Fitting data...')
+                print('\nFitting data...')
             if hasattr(self, 'vocabulary_'):
                 self.vocabulary_ = dict(self.vocabulary_, **self.fit(data).vocabulary_)
             else:

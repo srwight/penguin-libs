@@ -1,6 +1,9 @@
+from nltk.corpus import stopwords
+from sklearn.model_selection import train_test_split
+stop_words = set(stopwords.words('english'))
 import json, pandas as pd
 data = []
-with open('yelp_academic_dataset_review.json', 'r', encoding="utf8") as fl:
+with open('english_only_reviews.json', 'r', encoding="utf8") as fl:
     for line in range(1, 500000):
         print(f'Reading line {line}')
         data.append(fl.readline())
@@ -21,25 +24,24 @@ for x in data:
 list_of_tuples = list(zip(stars_modified, text_modified)) 
 
 
-df2 = pd.DataFrame(list_of_tuples, columns = ['stars', 'text']) 
+df = pd.DataFrame(list_of_tuples, columns = ['stars', 'text']) 
 
 # COUNTING MISSING VALUES IF THEY EXIT 
-df2.isnull().sum()
+df.isnull().sum()
 # GOOD TO GO! 
 
 # Count # of each labels
-df2['stars'].value_counts()
+df['stars'].value_counts()
 
 # TRAIN DATA FEATURES 
-X = df2['text']
+X = df['text']
 
 # TEST DATA 
-y = df2['stars']
-from sklearn.model_selection import train_test_split
+y = df['stars']
+# SPLITTING DATA INTPO TRAINING AND TESTING 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=50)
 
-from nltk.corpus import stopwords
-stop_words = set(stopwords.words('english'))
+
 
 
 

@@ -14,7 +14,7 @@ from ML_stack_ensemble import *
 
 ### Import your sklearn model ###
 # Example: from sklearn.linear_model import SGDClassifier
-
+from sklearn.svm import LinearSVR
 ### Import Preprocessing here ###
 # We should put all of our preprocessing together as one function.
 # Example:

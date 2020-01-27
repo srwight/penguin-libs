@@ -49,10 +49,10 @@ mnb=MultinomialNB(alpha=0.2)
 ##################################################### GEORGE A #############################################################################
 # Parameters [ instead of solver = 'sag', used solver = 'liblinear'] - based on sklearn documentations liblinear better for smaller datasets
 # 'sag' for larger ones 
-text_classifier = ('clf', OneVsRestClassifier(LogisticRegression(solver='sag')) # sag - stochastic average gradeint 
+text_classifier = OneVsRestClassifier(LogisticRegression(solver='sag')) # sag - stochastic average gradeint 
 
 
-models = [mnb,lsvc, text_classifier] # Add each model's variable name to the list.
+models = [mnb, lsvc, text_classifier] # Add each model's variable name to the list.
 
 
 ### Train-test split, vectorizing before making predictions ###
@@ -83,6 +83,6 @@ for m in models:
 ensemble = fit_stack(models, x_train, y_train)
 predictions = stacked_prediction(models, ensemble, x_test)
 accuracy = accuracy_score(y_test, predictions)
-print(prediction[0:20])
+print(predictions[0:20])
 print(f"Stacked accuracy: {accuracy}")
 joblib.dump(ensemble, f"{path}\ensemble.joblib")

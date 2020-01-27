@@ -127,7 +127,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random
 stop_words = set(stopwords.words('english'))
 text_classifier = Pipeline([
                 ('tfidf', TfidfVectorizer(stop_words=stop_words)),
-                ('clf', OneVsRestClassifier(LogisticRegression(solver='sag')),
+                ('clf', OneVsRestClassifier(LogisticRegression(solver='sag')), # sag - stochastic average gradeint 
             ])
 # text_classifier.fit(X_train, y_train) - training data (its saved in george_model_joblib
 # Prediction using predict method 

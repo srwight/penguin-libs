@@ -5,7 +5,7 @@ from math import log
 
 ## my own frequency token generator.
 class eda_crawler():
-    def __init__(self, stopwords:set = {}):
+    def __init__(self, stopwords:set = set()):
         self.vocab = dict()
         self.vocab_ratings = dict()
         # self.langs = dict()
@@ -104,7 +104,8 @@ def demotify(indoc:str) -> str:
         ':D': ' emgrin ',
         ':-D':' emgrin ',
         ';)': ' emwink ',
-        ';-)':' emwink '
+        ';-)':' emwink ',
+        '&'  :' and ',
     }
 
     for key in emoticon_dict:

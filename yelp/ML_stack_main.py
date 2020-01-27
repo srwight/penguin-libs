@@ -23,7 +23,7 @@ from preprocess import preprocess
 from sklearn.svm import LinearSVC
 
 from sklearn.multiclass import OneVsRestClassifier
-# from sklearn.naive_bayes import MultinomialNB
+from sklearn.naive_bayes import MultinomialNB
 
 
   
@@ -48,13 +48,15 @@ vectorizer = vectorizer.fit(df.text)
 # This model's default hyperparameters were already optimal for our data.
 lsvc = LinearSVC()
 
+#Michael Sriqui, I found 0.2 as the alpha yielded the best results 
+mnb=MultinomialNB(alpha=0.2)
 ##################################################### GEORGE A #############################################################################
 # Parameters [ instead of solver = 'sag', used solver = 'liblinear'] - based on sklearn documentations liblinear better for smaller datasets
 # 'sag' for larger ones 
 text_classifier = ('clf', OneVsRestClassifier(LogisticRegression(solver='sag')) # sag - stochastic average gradeint 
 
 
-models = [lsvc, text_classifier] # Add each model's variable name to the list.
+models = [mnb,lsvc, text_classifier] # Add each model's variable name to the list.
 
 
 ### Train-test split, vectorizing before making predictions ###
@@ -71,7 +73,7 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = .2)
 
 
 ### Initial tests and dumps ###
-mods = 1
+mods = 1                   
 for m in models:
     m.fit(x_train, y_train)
     predictions = m.predict(x_test)

@@ -108,9 +108,9 @@ y = df.stars
 x = vectorizer.transform(x)
 
 # The below binning is just for classification models. Additional work is needed for regression.
-y.replace([1, 2], -1)
-y.replace(3, 0)
-y.replace([4,5], 1)
+y.replace([1, 2], -1, inplace=True)
+y.replace(3, 0, inplace=True)
+y.replace([4,5], 1, inplace=True)
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = .2)
 

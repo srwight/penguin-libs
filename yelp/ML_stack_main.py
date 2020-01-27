@@ -19,7 +19,7 @@ from nltk.corpus import stopwords # Used in preprocess (for now)
 
 ### Import your sklearn model ###
 # Example: from sklearn.linear_model import SGDClassifier
-
+from sklearn.svm import LinearSVC
 ##################################################### GEORGE A #############################################################################
 # Parameters [ instead of solver = 'sag', used solver = 'liblinear'] - based on sklearn documentations liblinear better for smaller datasets
 # 'sag' for larger ones 
@@ -94,11 +94,12 @@ vectorizer = TfidfVectorizer(preprocessor = preprocess)
 vectorizer = vectorizer.fit(df.text)
 
 ### Place your model below with comments and parameters ###
+# This model's default hyperparameters were already optimal for our data.
+lsvc = LinearSVC()
 
 
 
-
-models = [] # Add each model's variable name to the list.
+models = [lsvc] # Add each model's variable name to the list.
 
 
 ### Train-test split, vectorizing before making predictions ###

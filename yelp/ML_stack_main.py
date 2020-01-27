@@ -35,7 +35,7 @@ df = pd.read_csv(path + r'\english100k.csv')
 
 ### Vectorizer ###
 ''' Call the transform method before training or making predictions. '''
-vectorizer = TfidfVectorizer(preprocessor = preprocessing, min_df=2)
+vectorizer = TfidfVectorizer(preprocessor = preprocessing, min_df=3)
 vectorizer = vectorizer.fit(df.text)
 
 ### Place your model below with comments and parameters ###
@@ -60,7 +60,7 @@ x = df.text
 y = df.stars
 x = vectorizer.transform(x)
 
-# The below binning is just for classification models. Additional work is needed for regression.
+# The below binning is for classification models (negative, neutral, positive).
 y.replace([1, 2], -1, inplace=True)
 y.replace(3, 0, inplace=True)
 y.replace([4,5], 1, inplace=True)

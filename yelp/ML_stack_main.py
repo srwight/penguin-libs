@@ -21,6 +21,9 @@ from nltk.corpus import stopwords # Used in preprocess (for now)
 # Example: from sklearn.linear_model import SGDClassifier
 
 ##################################################### GEORGE A #############################################################################
+# Parameters [ instead of solver = 'sag', used solver = 'liblinear'] - based on sklearn documentations liblinear better for smaller datasets
+# 'sag' for larger ones 
+# 
 # Importing all dependencies and libraries here some of them are imported above 
 from sklearn.linear_model import LogisticRegression
 from sklearn.multiclass import OneVsRestClassifier

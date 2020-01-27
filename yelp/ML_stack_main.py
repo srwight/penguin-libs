@@ -21,16 +21,11 @@ from preprocess import preprocess
 ### Import your sklearn model ###
 # Example: from sklearn.linear_model import SGDClassifier
 from sklearn.svm import LinearSVC
-
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.naive_bayes import MultinomialNB
 
 
-  
-# confusion_matrix(y_test, predictions) # confusion metrics 
-# classification_report(y_test, predictions) # report of precision, recall, f1-score 
-# accuracy_score(y_test, predictions)  
-# text_classifier.predict(["Very nice movie"]) # Checking how it works - > 1 (positive sentiment) 
+ 
 #####################################################################################################################################
 
 # This path will be changed later.
@@ -50,6 +45,7 @@ lsvc = LinearSVC()
 
 #Michael Sriqui, I found 0.2 as the alpha yielded the best results 
 mnb=MultinomialNB(alpha=0.2)
+
 ##################################################### GEORGE A #############################################################################
 # Parameters [ instead of solver = 'sag', used solver = 'liblinear'] - based on sklearn documentations liblinear better for smaller datasets
 # 'sag' for larger ones 

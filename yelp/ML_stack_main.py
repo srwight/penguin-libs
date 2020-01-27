@@ -13,6 +13,11 @@ import pandas as pd # We can remove pandas later
 from sklearn.linear_model import LogisticRegression # Used in ML_stack_ensemble
 from ML_stack_ensemble import *
 from nltk.corpus import stopwords # Used in preprocess (for now)
+from preprocessing import preprocessing
+# Below imports are for the preprocessing file.
+from demoticon import demotify
+from cleaning_data import clean_d
+from preprocess import preprocess
 
 
 
@@ -78,11 +83,6 @@ predictions = text_classifier.predict(X_test)
 # text_classifier.predict(["Very nice movie"]) # Checking how it works - > 1 (positive sentiment) 
 #####################################################################################################################################
 
-### Import Preprocessing here ###
-# We should put all of our preprocessing together as one function.
-# Example:
-from preprocess import preprocess
-
 # This path will be changed later.
 path = r'C:\Users\user\Desktop\Revature\Projects\Yelp\stacked'
 
@@ -90,7 +90,7 @@ df = pd.read_csv(path + r'\english100k.csv')
 
 ### Vectorizer ###
 ''' Call the transform method before training or making predictions. '''
-vectorizer = TfidfVectorizer(preprocessor = preprocess)
+vectorizer = TfidfVectorizer(preprocessor = preprocessing)
 vectorizer = vectorizer.fit(df.text)
 
 ### Place your model below with comments and parameters ###

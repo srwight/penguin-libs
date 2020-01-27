@@ -23,6 +23,7 @@ from preprocess import preprocess
 from sklearn.svm import LinearSVC
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.svm import LinearSVR
 
 
  
@@ -42,6 +43,9 @@ vectorizer = vectorizer.fit(df.text)
 
 # This model's default hyperparameters were already optimal for our data.
 lsvc = LinearSVC()
+
+# Two parameters need to be changed, but only because they work better when records > features, and that will be our scenario.
+linearSVR = LinearSVR(loss='squared_epsilon_insensitive', dual=False)
 
 #Michael Sriqui, I found 0.2 as the alpha yielded the best results 
 mnb=MultinomialNB(alpha=0.2)

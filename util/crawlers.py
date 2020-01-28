@@ -102,7 +102,7 @@ class gatherVocabFreq(baseCrawler):
 
 class gatherBigramFreq(baseCrawler):
     def __init__(self, filename:str, stopwords:set=set(), 
-                callbackFunc=None,callbackFreq=10000,debug=True,debugrecords=10000,
+                callbackFunc=None,callbackFreq=10000,debug=False,debugrecords=10000,
                 keys = ['text','stars']):
         self._filename = filename
         self._stopwords = stopwords

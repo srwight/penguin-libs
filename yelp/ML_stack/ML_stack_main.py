@@ -5,7 +5,7 @@
   - Put in @author: <your name> for your model section.
 '''
 
-import joblib, string
+import joblib, string, pickle
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import accuracy_score
@@ -39,6 +39,8 @@ df = pd.read_csv(path + r'\english100k.csv')
 vectorizer = TfidfVectorizer(preprocessor = preprocessing, min_df=3)
 vectorizer = vectorizer.fit(df.text)
 
+pickle.dump(vectorizer, open('vectorizer.pkl', 'wb'))
+
 ### Place your model below with comments and parameters ###
 
 # This model's default hyperparameters were already optimal for our data.
@@ -64,12 +66,20 @@ x = df.text
 y = df.stars
 x = vectorizer.transform(x)
 
-# The below binning is for classification models (negative, neutral, positive).
-y.replace([1, 2], -1, inplace=True)
-y.replace(3, 0, inplace=True)
-y.replace([4,5], 1, inplace=True)
-
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = .2)
+
+linearSVR.fit(x_train, y_train)
+joblib.dump(linearSVR, "linearSVR.joblib")
+
+# The below binning is for classification models (negative, neutral, positive).
+# Moved replace to after linearSVR is fitted.
+y_train.replace([1, 2], -1, inplace=True)
+y_train.replace(3, 0, inplace=True)
+y_train.replace([4,5], 1, inplace=True)
+y_test.replace([1, 2], -1, inplace=True)
+y_test.replace(3, 0, inplace=True)
+y_test.replace([4,5], 1, inplace=True)
+
 
 
 ### Initial tests and dumps ###

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Text Sentiment</title>
+    <title>Email Severity Predictor</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -13,10 +13,10 @@
             <img src="{{ url_for('static', filename='logo.png') }}">
         </aside>
         <section id="title">
-            Text Sentiment and Severity Prediction
+            Email Severity Predictor
         </section>
     </header>
-    <div id='main'>
+    <div>
         <aside>
             <nav>
                 <a class="links"></a>
@@ -28,12 +28,10 @@
             </nav>
         </aside>
         <section>
-            {% block outer_content %}
             <div class="content">
                 {% block content %}
                 {% endblock %}
             </div>
-            {% endblock %}
         </section>
     </div>
     <footer>©2020 All rights reserved.</footer>

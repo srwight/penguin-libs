@@ -1,1 +1,27 @@
 {% extends 'base.html' %}
+{% block content %}
+
+<table>
+	<tr>
+		<ul id="bionav">
+			<td></td>
+			<td><li class="bioli"><a href="{{ url_for('DHenderson') }}">Desmond Henderson</a></li></td>
+			<td><li class="bioli"><a href="{{ url_for('GAvetisyan') }}">George Avetisyan</a></li></td>
+			<td><li class="bioli"><a href="{{ url_for('ABuckalew') }}">Alex Buckalew</a></li></td>
+			<td><li class="bioli"><a href="{{ url_for('MSriqui') }}">Michael Sriqui</a></li></td>
+			<td><li class="bioli"><a href="{{ url_for('SWight') }}">Stephen Wight</a></li></td>
+		</ul>
+	</tr>
+	<tr>
+		<div id="biocontent">
+		<td>{% block bio %}</td>
+		<td><img src="{{ url_for('static', filename='IMG_Desmond.jpg') }}" alt="picture of Desmond" class="biopic"></td>
+		<td><img src="{{ url_for('static', filename='IMG_George.jpg') }}" alt="picture of George" class="biopic"></td>
+		<td><img src="{{ url_for('static', filename='IMG_Alex.jpg') }}" alt="picture of Alex" class="biopic"></td>
+		<td><img src="{{ url_for('static', filename='IMG_Michael.jpg') }}" alt="picture of Michael" class="biopic"></td>
+		<td><img src="{{ url_for('static', filename='IMG_Steven.jpg') }}" alt="picture of Stephen" class="biopic"></td>
+		{% endblock %}
+		</div>
+	</tr>
+</table>
+{% endblock %}

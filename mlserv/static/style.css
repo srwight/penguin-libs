@@ -3,7 +3,6 @@ html, body {
     background: rgb(214, 206, 206);
     height: 100%;
     margin: 0;
-    font-size: medium;
 }
 
 body {
@@ -12,7 +11,7 @@ body {
 }
 
 aside {
-    min-width: 13%;
+    min-width: 11%;
     background: rgb(214, 206, 206);
 }
 
@@ -30,10 +29,10 @@ section {
 }
 
 header {
+    height: 100px;
     background: rgb(214, 206, 206);
     display: flex;
     flex-direction: row;
-    min-height: 100px;
 }
 
 header * {
@@ -41,7 +40,7 @@ header * {
 }
 
 
-#main {
+div {
     flex-grow: 1;
     display: flex;
     flex-direction: row;
@@ -54,13 +53,8 @@ footer {
 }
 
 #logo {
-    max-width: 100%;
     align-self: center;
     text-align: center;
-}
-
-#logo > img {
-    max-width: 95%;
 }
 
 #title {
@@ -97,21 +91,35 @@ footer {
 
 .content {
     position: relative;
-    border-radius: 20px;
+    border-radius: 26px;
     min-height: 80%;
     flex-grow: 1;
     z-index: 3;
     margin: 5%;
-    padding: 5%;
     background: rgb(214, 206, 206);
 }
 
-.content-title {
-    font-size: larger;
+#bionav{
+	list-style-type: none;
+	margin: 10;
+	padding: 5;
 }
 
-.review {
-    background: white;
-    box-shadow: inset 0 0 5px;
-    padding: 8px;
+#bioli{
+	float: left;
+	display: block;
+	padding: 10px;
+	border-right-style:solid;
+	border-width: 1px;
 }
+
+#biocontent{
+	display: block;
+	padding: 10px;
+	float: left;
+}
+table{
+	margin-right:30%;
+	margin-left:0%;
+}
+

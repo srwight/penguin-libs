@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block outer_content %}
-    {{ super() }}
-    {% block content %}
+    <div class="content">
         <p class="content-title">Sentiment Analysis using the 2018 Yelp Review Dataset</p>
         <p class="content-body review">{{ review|safe|truncate(1000) }} 
         <br>
@@ -9,6 +8,6 @@
         ⭐
         {% endfor %}</p>
         <p><a href='/'>See Another</a></p>
-    {% endblock %}
+    </div>
 {% endblock %}
     

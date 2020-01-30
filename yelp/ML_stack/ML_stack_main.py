@@ -8,7 +8,7 @@
 import joblib, string, pickle
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, precision_score, recall_score, confusion_matrix
 import pandas as pd # We can remove pandas later
 from sklearn.linear_model import LogisticRegression # Used in ML_stack_ensemble
 from ML_stack_ensemble import *
@@ -18,12 +18,12 @@ from preprocessing import preprocessing
 from demoticon import demotify
 from cleaning_data import clean_d
 from preprocess import preprocess
-### Import your sklearn model ###
-# Example: from sklearn.linear_model import SGDClassifier
+
 from sklearn.svm import LinearSVC
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.svm import LinearSVR
+from sklearn.calibration import CalibratedClassifierCV
 
 
  
@@ -36,7 +36,7 @@ df = pd.read_csv(path + r'\english100k.csv')
 
 ### Vectorizer ###
 ''' Call the transform method before training or making predictions. '''
-vectorizer = TfidfVectorizer(preprocessor = preprocessing, min_df=3)
+vectorizer = TfidfVectorizer(preprocessor = preprocessing, ngram_range = (1,2), min_df=3)
 vectorizer = vectorizer.fit(df.text)
 
 pickle.dump(vectorizer, open('vectorizer.pkl', 'wb'))
@@ -44,7 +44,7 @@ pickle.dump(vectorizer, open('vectorizer.pkl', 'wb'))
 ### Place your model below with comments and parameters ###
 
 # This model's default hyperparameters were already optimal for our data.
-lsvc = LinearSVC()
+lsvc = CalibratedClassifier(LinearSVC())
 
 # Two parameters need to be changed, but only because they work better when records > features, and that will be our scenario.
 linearSVR = LinearSVR(loss='squared_epsilon_insensitive', dual=False)
@@ -89,8 +89,19 @@ for m in models:
     predictions = m.predict(x_test)
     joblib.dump(m, f"{path}\{mods}.joblib")
     mods += 1
+    tests = [
+    for x in predictions:
+      y = np.argmax(x)
+      y -= 1
+      tests.append(y)
     print(m, '\n')
-    print(accuracy_score(y_test, predictions))
+    precision = precision_score(y_test, tests, average='micro')
+    recall = recall_score(y_test, tests, average='micro')
+    f1_score = 2 * (precision * recall) / (precision + recall)
+    print( "Precision: " + str(precision) + " Recall: " + str(recall) + " F1 Score: " + str(f1_score))
+    print(confusion_matrix(y_test, tests)
+      
+    print(accuracy_score(y_test, tests))
 
 
 
@@ -100,3 +111,8 @@ accuracy = accuracy_score(y_test, predictions)
 print(predictions[0:20])
 print(f"Stacked accuracy: {accuracy}")
 joblib.dump(ensemble, f"{path}\ensemble.joblib")
+precision = precision_score(y_test, predictions, average='micro')
+recall = recall_score(y_test, predictions, average='micro')
+f1_score = 2 * (precision * recall) / (precision + recall)
+print( "Precision: " + str(precision) + " Recall: " + str(recall) + " F1 Score: " + str(f1_score))
+

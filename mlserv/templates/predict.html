@@ -1,1 +1,15 @@
 {% extends 'base.html' %}
+{% block content %}
+    <p class="content-title"> Did you love it? Did you hate it? What would you rate it? </p>
+    <form action = '/predict' method = 'POST' placeholder = "What a wonderful place.">
+        <input type = 'text' name = 'user_review'>
+        <input type = 'submit' value = 'Submit'>
+    </form>
+    {% if prediction %}
+        {{ prediction }}
+        <br>{% for n in range(linear_predict) %}
+        ⭐
+        {% endfor %}</p>
+        <p><a href='/predict'>See Another</a></p>
+    {% endif %}
+{% endblock %}

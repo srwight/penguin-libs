@@ -1,6 +1,15 @@
 from flask import render_template, request
 from mlserv import app
 from random import randint
+from flask_wtf import FlaskForm
+from wtforms import StringField
+from wtforms.validators import DataRequired
+from mlserv.models.ML_stack_ensemble import *
+from mlserv.helpers import *
+import preprocessing
+
+model = Model()
+preprocessing = preprocessing
 
 ### Constants
 stars = [1,5,5,5,1,4,3,1,2,3]
@@ -39,4 +48,26 @@ def bio():
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predictor():
-    return render_template('predict.html', predictor='active')
+    if request.method == 'GET':
+        return render_template('predict.html', predictor='active')
+    user_review = request.form['user_review']
+    user_review = [user_review]
+    user_review = model.vectorizer.transform(user_review)
+    prediction = stacked_prediction(model.models, model.ensemble, user_review)
+    if prediction == 1:
+        prediction = "Positive review: "
+    elif prediction == 0:
+        prediction = "Neutral review: "
+    else:
+        prediction = "Negative review: "
+    linear_predict = model.linearSVR.predict(user_review)
+    linear_predict = int(round(linear_predict[0]))
+    if linear_predict < 1:
+        linear_predict = 1
+    elif linear_predict > 5:
+        linear_predict = 5
+    return render_template(template_name_or_list = 'predict.html',
+                                predictor ='active',
+                                prediction = prediction,
+                                linear_predict = linear_predict
+                                )

@@ -2,17 +2,18 @@
 
 def stack_predict(models, X):
     '''Making predictions with each model.'''
-    predictions = []
+    from numpy import dstack
+    predictions = None
     for m in models:
-        prediction = m.predict(X)
+        prediction = m.predict_proba(X)
         # If there are no predictions yet...
-        if len(predictions) == 0:
+        if predictions is None:
             # the predictions is a list of our one set of predictions...
-            predictions = list(map(lambda p:[p], prediction))
+            predictions = prediction
         else:
             # if there are, then we append to each prediction.
-            for i in range(len(prediction)):
-                predictions[i].append(prediction[i])
+            predictions = dstack((predictions, prediction))
+    predictions = predictions.reshape((predictions.shape[0], predictions.shape[1]*predictions.shape[2]))
     return predictions
 
 def fit_stack(models, X, Y):

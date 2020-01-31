@@ -59,6 +59,7 @@ text_classifier = OneVsRestClassifier(LogisticRegression(solver='sag')) # sag - 
 
 models = [mnb, lsvc, text_classifier] # Classifier models for the ensemble.
 
+LSA = TruncatedSVD(n_components = 100)
 
 ### Train-test split, vectorizing before making predictions ###
 x = df.text
@@ -93,7 +94,7 @@ for m in models:
     predictions = m.predict(x_test)
     joblib.dump(m, f"{path}\{mods}.joblib")
     mods += 1
-    tests = [
+    tests = []
     for x in predictions:
       y = np.argmax(x)
       y -= 1

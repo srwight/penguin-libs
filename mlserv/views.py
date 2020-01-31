@@ -1,9 +1,6 @@
 from flask import render_template, request
 from mlserv import app
 from random import randint
-from flask_wtf import FlaskForm
-from wtforms import StringField
-from wtforms.validators import DataRequired
 from mlserv.models.ML_stack_ensemble import *
 from mlserv.helpers import *
 import preprocessing
@@ -38,13 +35,6 @@ def home():
         stars=stars[selector]
     )
 
-@app.route('/about', methods=['GET'])
-def about():
-    return render_template('about.html', about='active')
-
-@app.route('/bio', methods=['GET'])
-def bio():
-    return render_template('bio.html', bio='active')
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predictor():
